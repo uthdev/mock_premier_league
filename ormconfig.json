@@ -1,0 +1,17 @@
+{
+  "type": "mongodb",
+  "host": "localhost",
+  "database": "premier_league",
+  "synchronize": true,
+  "logging": true,
+  "entities": [
+    "src/entity/*.js"
+  ],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration"
+  },
+  "migrations": [
+    "src/migration/**/*.ts"
+  ]
+} 

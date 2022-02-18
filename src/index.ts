@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import router from './routes';
+// import router from './routes';
 
 // import HttpException from "exceptions/HttpException";
 

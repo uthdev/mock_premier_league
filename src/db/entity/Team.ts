@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, Index, ObjectID, ObjectIdColumn, PrimaryColumn, Unique } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index,  ObjectIdColumn, PrimaryColumn, Unique } from "typeorm";
 
 @Entity('teams')
 @Unique(["teamName"])

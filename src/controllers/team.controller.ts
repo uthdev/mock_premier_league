@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import RequestWithUser from '../interfaces/requestWithUser.interface';
 import { getRepository } from "typeorm";
 import { TeamEntity } from '../db/entity/Team'
-import Team from 'interfaces/team.interface';
 import NotFoundException from '../exceptions/NotFoundException';
 
 class TeamController {

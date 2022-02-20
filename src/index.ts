@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application } from "express";
 import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
@@ -9,10 +9,6 @@ import { initConnection } from './db'
 import { authRoutes, fixtureRoutes, teamRoutes } from './routes'
 import errorMiddleware from "./middleware/error.middleware";
 
-
-// import router from './routes';
-
-// import HttpException from "exceptions/HttpException";
 
 dotenv.config();
 const app: Application = express();
@@ -27,8 +23,7 @@ const accountLimiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
-initConnection().then(db => {
-  // console.log(db)
+initConnection().then(d => {
 
   //helmet
   app.use(helmet());

@@ -1,4 +1,4 @@
-import { IsEmail, IsString, Length } from 'class-validator';
+import {  IsString } from 'class-validator';
 
 class TeamDto {
   @IsString()

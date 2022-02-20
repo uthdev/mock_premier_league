@@ -45,7 +45,12 @@ initConnection().then(_ => {
   app.use('/auth', accountLimiter, authRoutes);
   app.use('/teams', teamRoutes);
   app.use('/fixtures', fixtureRoutes);
-  app.use('/', searchRoutes);
+  app.use('/search', searchRoutes);
+  app.use('/*', (req, res) => {
+    res.status(200).json({
+      message: 'Welcome to the Mock Premier API',
+    });
+  });
   
   app.use(errorMiddleware)
   

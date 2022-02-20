@@ -9,7 +9,7 @@ import { FixtureEntity } from "../db/entity/Fixture";
 class SearchController {
   static async find(request: Request, response: Response, next: NextFunction) {
     try {
-      const searchQuery = request.query?.s?.toString();
+      const searchQuery = request.query?.q?.toString();
       if(searchQuery) {
         const teams: Team[] = await TeamService.getTeams(searchQuery);
         const fixtures: FixtureEntity[] = await FixtureService.getFixtures(searchQuery);

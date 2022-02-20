@@ -6,7 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import "reflect-metadata";
 import { initConnection } from './db'
-import { authRoutes } from './routes'
+import { authRoutes, teamRoutes } from './routes'
 import errorMiddleware from "./middleware/error.middleware";
 
 
@@ -48,6 +48,7 @@ initConnection().then(db => {
 
   
   app.use('/auth', accountLimiter, authRoutes);
+  app.use('/teams', teamRoutes)
   
   app.use(errorMiddleware)
   

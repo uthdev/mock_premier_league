@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ObjectIdColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn } from "typeorm";
 
 @Entity('users')
 export class UserEntity {
@@ -18,7 +18,7 @@ export class UserEntity {
   @Column({ select: false })
   password: string;
 
-  @Column({default: false})
+  @Column({default: false, insert: true })
   isAdmin: boolean;
 
   @CreateDateColumn()

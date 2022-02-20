@@ -48,7 +48,7 @@ class AuthenticationService {
         const cookie = this.createCookie(tokenData);
         return {
           cookie,
-          user: omit(user, ["password"])
+          user: {...omit(user, ["password"]), token: tokenData}
         };
       } else {
         throw new WrongCredentialsException();

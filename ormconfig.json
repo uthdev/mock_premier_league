@@ -3,7 +3,7 @@
   "host": "localhost",
   "database": "premier_league",
   "synchronize": true,
-  "logging": true,
+  "logging": false,
   "entities": [
     "src/db/entity/**/*.ts"
   ],

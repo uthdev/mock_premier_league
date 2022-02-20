@@ -43,7 +43,7 @@ class AuthenticationController {
     const logInData: LogInDto = request.body;
     try {
       const { user, cookie } = await AuthenticationService.login(logInData);
-      console.log(user);
+      // console.log(user);
       response.setHeader('Set-Cookie', [cookie]);
       response.status(200).json({
         status: 200,

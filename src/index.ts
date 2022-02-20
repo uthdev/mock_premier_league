@@ -6,7 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import "reflect-metadata";
 import { initConnection } from './db'
-import { authRoutes, fixtureRoutes, teamRoutes } from './routes'
+import { authRoutes, fixtureRoutes, teamRoutes, searchRoutes } from './routes'
 import errorMiddleware from "./middleware/error.middleware";
 
 
@@ -23,7 +23,7 @@ const accountLimiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
-initConnection().then(d => {
+initConnection().then(_ => {
 
   //helmet
   app.use(helmet());
@@ -45,6 +45,7 @@ initConnection().then(d => {
   app.use('/auth', accountLimiter, authRoutes);
   app.use('/teams', teamRoutes);
   app.use('/fixtures', fixtureRoutes);
+  app.use('/', searchRoutes);
   
   app.use(errorMiddleware)
   

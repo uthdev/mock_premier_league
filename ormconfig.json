@@ -8,8 +8,8 @@
     "src/db/entity/**/*.ts"
   ],
   "cli": {
-    "entitiesDir": "src/entity",
-    "migrationsDir": "src/migrations"
+    "entitiesDir": "src/db/entity",
+    "migrationsDir": "src/db/migrations"
   },
   "migrations": [
     "src/db/migration/**/*.ts"

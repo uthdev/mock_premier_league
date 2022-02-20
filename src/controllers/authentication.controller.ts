@@ -1,3 +1,4 @@
+import LogInDto from 'dto/logIn.dto';
 import { Request, Response, NextFunction } from 'express';
 // import omit from 'lodash.omit'
 // import WrongCredentialsException from '../exceptions/WrongCredentialsException';
@@ -38,25 +39,20 @@ class AuthenticationController {
     }
   }
 
-  // private loggingIn = async (request: Request, response: Response, next: NextFunction) => {
-  //   const logInData: LogInDto = request.body;
-  //   const user = await this.user.findOne({ email: logInData.email });
-  //   if (user) {
-  //     const isPasswordMatching = await bcrypt.compare(
-  //       logInData.password,
-  //       user.get('password', null, { getters: false }),
-  //     );
-  //     if (isPasswordMatching) {
-  //       const tokenData = this.createToken(user);
-  //       response.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
-  //       response.send(user);
-  //     } else {
-  //       next(new WrongCredentialsException());
-  //     }
-  //   } else {
-  //     next(new WrongCredentialsException());
-  //   }
-  // }
+  static async loggingIn (request: Request, response: Response, next: NextFunction) {
+    const logInData: LogInDto = request.body;
+    try {
+      const { user, cookie } = await AuthenticationService.login(logInData);
+      console.log(user);
+      response.setHeader('Set-Cookie', [cookie]);
+      response.status(200).json({
+        status: 200,
+        data: user
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
 
   // private loggingOut = (request: Request, response: Response) => {
   //   response.setHeader('Set-Cookie', ['Authorization=;Max-age=0']);

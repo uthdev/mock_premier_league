@@ -1,4 +1,5 @@
-import CreateUserDto from "dto/user.dto";import * as bcrypt from 'bcrypt';
+import CreateUserDto from "dto/user.dto";
+import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import omit from 'lodash.omit';
 import { getRepository } from "typeorm";
@@ -7,6 +8,8 @@ import DataStoredInToken from '../interfaces/dataStoredInToken';
 import TokenData from '../interfaces/tokenData.interface';
 import User from '../interfaces/user.interface';
 import { UserEntity } from '../db/entity/User'
+import LogInDto from "dto/logIn.dto";
+import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 // import userModel from './../user/user.model';
 
 class AuthenticationService {
@@ -30,6 +33,29 @@ class AuthenticationService {
     return {
       user: omit(result, ["password"]),
     };
+  }
+
+  static async login(logInData: LogInDto) {
+    const userRepository = getRepository(UserEntity);
+    const user = await userRepository.findOne({ email: logInData.email });
+    if (user) {
+      const isPasswordMatching = await bcrypt.compare(
+        logInData.password,
+        user.password,
+      );
+      if (isPasswordMatching) {
+        const tokenData = this.createToken(user);
+        const cookie = this.createCookie(tokenData);
+        return {
+          cookie,
+          user: omit(user, ["password"])
+        };
+      } else {
+        throw new WrongCredentialsException();
+      }
+    } else {
+      throw new WrongCredentialsException();
+    }
   }
 
   public static createCookie(tokenData: TokenData) {

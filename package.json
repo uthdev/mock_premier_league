@@ -10,6 +10,7 @@
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/src/index.js",
     "dev": "ts-node-dev src/index.ts",
+    "user:seed": "ts-node src/db/seeds/user.seed.ts",
     "test": "nyc --reporter=html --reporter=text mocha -r ts-node/register tests/**/*.spec.ts --exit"
   },
   "keywords": [],

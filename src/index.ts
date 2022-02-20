@@ -6,7 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import "reflect-metadata";
 import { initConnection } from './db'
-import { authRoutes, teamRoutes } from './routes'
+import { authRoutes, fixtureRoutes, teamRoutes } from './routes'
 import errorMiddleware from "./middleware/error.middleware";
 
 
@@ -16,7 +16,7 @@ import errorMiddleware from "./middleware/error.middleware";
 
 dotenv.config();
 const app: Application = express();
-const PORT = process.env.PORT || 5000;
+export const PORT = process.env.PORT || 5000;
 
 const accountLimiter = rateLimit({
 	windowMs: 60 * 60 * 1000, // 1 hour
@@ -48,7 +48,8 @@ initConnection().then(db => {
 
   
   app.use('/auth', accountLimiter, authRoutes);
-  app.use('/teams', teamRoutes)
+  app.use('/teams', teamRoutes);
+  app.use('/fixtures', fixtureRoutes);
   
   app.use(errorMiddleware)
   

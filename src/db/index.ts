@@ -1,4 +1,5 @@
 import { Connection, createConnection } from 'typeorm';
+import { FixtureEntity } from './entity/Fixture';
 import { TeamEntity } from './entity/Team';
 import { UserEntity } from './entity/User';
 
@@ -11,7 +12,7 @@ export const initConnection = async (): Promise<Connection> => {
   connection = await createConnection({
     type: "mongodb",
     url: process.env.DATABASE_URL,
-    entities: [UserEntity, TeamEntity],
+    entities: [UserEntity, TeamEntity, FixtureEntity],
   });
   return connection;
 };

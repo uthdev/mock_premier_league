@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, ObjectIdColumn } from "typeorm";
+import { TeamEntity } from "./Team";
 
 @Entity('fixtures')
 export class FixtureEntity {
@@ -12,11 +13,11 @@ export class FixtureEntity {
   @Column()
   matchDate: Date;
 
-  @Column()
-  homeTeam: string;
+  @Column(type => TeamEntity)
+  homeTeam: TeamEntity;
 
-  @Column()
-  awayTeam: string;
+  @Column(type => TeamEntity)
+  awayTeam: TeamEntity;
 
   @Column({nullable: true, type: "number" })
   homeTeamScore: number;

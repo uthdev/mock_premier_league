@@ -10,8 +10,8 @@ class FixtureService {
       ...options,
       where: {
         $or: [
-          {homeTeam: new RegExp(searchQuery.toString(), 'i')},
-          {awayTeam: new RegExp(searchQuery.toString(), 'i')},
+          {'homeTeam.teamName': new RegExp(searchQuery.toString(), 'i')},
+          {'awayTeam.teamName': new RegExp(searchQuery.toString(), 'i')},
           {status: new RegExp(searchQuery.toString(), 'i')}
         ]
       }

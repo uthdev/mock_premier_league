@@ -9,8 +9,6 @@ const router = Router()
 
 router.post('/', authMiddleware, authorizeAdmin, validationMiddleware(FixtureDto), FixtureController.addFixture)
 router.get('/', authMiddleware, FixtureController.getAllFixtures);
-router.get('/pending', authMiddleware, FixtureController.getFixturesByStatus);
-router.get('/completed', authMiddleware, FixtureController.getFixturesByStatus);
 router.get('/:id', authMiddleware, FixtureController.getFixture);
 router.patch('/:id',
   authMiddleware, authorizeAdmin,

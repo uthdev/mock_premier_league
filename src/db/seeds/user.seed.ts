@@ -1,8 +1,11 @@
-import { Connection, createConnection } from 'typeorm';
+import { Connection, createConnection, getRepository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { faker } from '@faker-js/faker';
 import { UserEntity } from '../entity/User';
 import dotenv from 'dotenv';
+import { TeamEntity } from 'db/entity/Team';
+import { ObjectId } from 'mongodb';
+// import { ObjectId } from 'bson';
 
 dotenv.config()
 
@@ -28,7 +31,7 @@ const users = [
     email: faker.internet.email(),
     password: bcrypt.hashSync(faker.internet.password(), 10),
   }
-]
+];
 
 createConnection().then(async (connection: Connection) => {
   // adminUser.password = await bcrypt.hash(adminUser.password, bcrypt.genSaltSync(10));
@@ -37,6 +40,15 @@ createConnection().then(async (connection: Connection) => {
     await userRepository.save(users[i]);
   }
   console.log('users seeded');
+
+  const teamRepository = connection.getMongoRepository(TeamEntity);
+  for(let i = 0; i < 50; i++) {
+    const team = {
+      teamName: faker.company.companyName(),
+      createdBy: new ObjectId(faker.datatype.uuid()).toString(),
+    }
+    await teamRepository.save(team);
+  }
   process.exit();
 })
 

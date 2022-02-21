@@ -42,7 +42,7 @@ initConnection().then(_ => {
   app.use(cors(corsOption));
 
   
-  app.use('/auth', accountLimiter, authRoutes);
+  app.use('/auth', authRoutes);
   app.use('/teams', teamRoutes);
   app.use('/fixtures', fixtureRoutes);
   app.use('/search', searchRoutes);

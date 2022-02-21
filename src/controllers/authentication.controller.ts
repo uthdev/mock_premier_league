@@ -23,7 +23,6 @@ class AuthenticationController {
       const {
         user,
       } = await AuthenticationService.register(userData);
-      console.log(user);
       // response.setHeader('Set-Cookie', [cookie]);
       response.status(201).json({
         status: 201,

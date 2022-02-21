@@ -21,16 +21,12 @@ class TeamController {
     }
   }
 
-
   static async getTeam(request: Request, response: Response, next: NextFunction) {
     try {
       const teamId = request.params.id;
 
-      console.log(teamId);
       const teamRepository = getRepository(TeamEntity);
       const team = await teamRepository.findOne(teamId)
-      console.log(team);
-
 
       if (!team) {
         next(new NotFoundException("Team", teamId))
@@ -51,7 +47,6 @@ class TeamController {
 
       const teamRepository = getRepository(TeamEntity);
       const teams = await teamRepository.find()
-      console.log(teams);
 
       return response.status(200).json({
         status: 200,

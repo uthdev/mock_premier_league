@@ -54,7 +54,7 @@ The api is documented with Swagger on [Mock-Shop api-doc]()
 
 ---
 ## API Information
-The API is hosted on [Heroku]https://mock-mall.herokuapp.com/api/v1/
+The API is hosted on [https://uthdev-premier.herokuapp.com/](https://uthdev-premier.herokuapp.com/)
 
 METHOD |  RESOURCE   |     DESCRIPTION                | ENDPOINTS
 -------|-------------|--------------------------------|-----------

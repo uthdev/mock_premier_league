@@ -29,7 +29,7 @@ The api is hosted on [Heroku](https://uthdev-premier.herokuapp.com/)
 
 ---
 ## Documentation
-The api is documented with Swagger on [Mock-Shop api-doc]()
+The api is documented with [Postman](https://documenter.getpostman.com/view/6265858/UVkjwyJB)
 
 
 ---

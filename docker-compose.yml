@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  mock_premier_league:
+    container_name: api
+    build: .
+    ports:
+      - 5000:5000
+    environment:
+      DATABASE_URL: mongodb://mongo_db:27017/premier_league
+      PORT: 5000
+      JWT_SECRET: aksoiaewk-akjae
+      ADMIN_PASSWORD: Dattebayo7
+      REDIS_CLOUD_URL: redis://default:TgRND7T0L5EU1zCSB74s2W0owdy56lHK@redis-17506.c17.us-east-1-4.ec2.cloud.redislabs.com:17506
+    depends_on:
+      - mongo_db
+
+  mongo_db:
+    container_name: mongo_container
+    restart: always
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_db:/data/db
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  mongo_db: {}

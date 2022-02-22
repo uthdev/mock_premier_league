@@ -19,4 +19,6 @@ export const initConnection = async (): Promise<Connection> => {
 
 const getConnection = () => connection
 
+
+
 export default getConnection

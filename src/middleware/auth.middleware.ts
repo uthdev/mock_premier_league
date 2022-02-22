@@ -1,3 +1,4 @@
+import redis from 'redis';
 import { UserEntity } from '../db/entity/User';
 import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
@@ -29,6 +30,8 @@ const authMiddleware = async (request: RequestWithUser, response: Response, next
     next(new AuthenticationTokenMissingException());
   }
 }
+
+
 
 
 export default authMiddleware;

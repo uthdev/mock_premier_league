@@ -1,7 +1,13 @@
 FROM node:14
 
-WORKDIR /opt/app
+WORKDIR /usr/src/app
 
-RUN npm install
+COPY package*.json .
 
-CMD npm run serve
+RUN npm ci
+
+COPY . .
+
+EXPOSE 5000
+
+CMD npm start

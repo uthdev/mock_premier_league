@@ -1,5 +1,5 @@
 # Mock Premier league
-Mock Shop is a simple shopping server. 
+Mock Premier is an api for  
 
 ---
 

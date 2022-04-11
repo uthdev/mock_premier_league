@@ -5,17 +5,6 @@ import AuthenticationService from '../services/authentication.service';
 
 
 class AuthenticationController {
-  // private user = userModel;
-
-  // constructor() {
-  //   // this.initializeRoutes();
-  // }
-
-  // private initializeRoutes() {
-  //   this.router.post(`${this.path}/register`, validationMiddleware(CreateUserDto), this.registration);
-  //   this.router.post(`${this.path}/login`, validationMiddleware(LogInDto), this.loggingIn);
-  //   this.router.post(`${this.path}/logout`, this.loggingOut);
-  // }
 
   static async registration (request: Request, response: Response, next: NextFunction) {
     const userData: CreateUserDto = request.body;

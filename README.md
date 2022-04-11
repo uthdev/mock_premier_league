@@ -1,4 +1,5 @@
 # Mock Premier league
+
 Mock Premier is an api for  
 
 ---
@@ -22,18 +23,22 @@ Mock Premier is an api for
 
 ---
 
-
 ---
+
 ## Backend
+
 The api is hosted on [Heroku](https://uthdev-premier.herokuapp.com/)
 
 ---
+
 ## Documentation
+
 The api is documented with [Postman](https://documenter.getpostman.com/view/6265858/UVkjwyJB)
 
-
 ---
+
 ## Technologies Used
+
 - Node.js
 - Express.js
 - Mongodb
@@ -42,18 +47,20 @@ The api is documented with [Postman](https://documenter.getpostman.com/view/6265
 - Heroku
 - Typescript
 
-
 ---
+
 ## Testing Tools
+
 - [Mocha](https://mochajs.org)
 - [Chai](https://www.chaijs.com)
 - [Sinon](https://sinonjs.org/)
 - [NYC](https://istanbul.js.org)
 - [Postman](https://www.getpostman.com)
 
-
 ---
+
 ## API Information
+
 The API is hosted on [https://uthdev-premier.herokuapp.com/](https://uthdev-premier.herokuapp.com/)
 
 METHOD |  RESOURCE   |     DESCRIPTION                | ENDPOINTS
@@ -75,12 +82,11 @@ POST   | User/Admin  | User signup                    |`/auth/signup`
 POST   | User/Admin  | User signin                    |`/auth/login`
 GET    | -----       | Search teams and fixtures      |`/search?q=`
 
-
 ---
+
 #### Clone
 
 - Clone this repo to your local machine using `https://github.com/uthdev/mock_premier_league`
-
 
 #### Setup
 
@@ -89,13 +95,13 @@ GET    | -----       | Search teams and fixtures      |`/search?q=`
 > run the command below
 
 ```shell
-$ npm install
+npm install
 ```
 
 > Then create a .env file in the root directory of the project
 
 ```shell
-$ touch .env
+touch .env
 ```
 
 > Then copy the content of the .env-example file in the root directory into .env file and fill in th required parameters
@@ -103,20 +109,23 @@ $ touch .env
 > To start the server, run the command below
 
 ```shell
-$ npm start
+npm start
 ```
 
 ---
+
 ## Test
+
 - To test the app
 
 > run test using the command below
 
 ```shell
-$ npm run test
+npm run test
 ```
 
 ---
+
 ## Author
 
 Adeleke Gbolahan Uthman

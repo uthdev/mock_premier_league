@@ -1,7 +1,7 @@
 {
-  "name": "cloud_backup",
+  "name": "premier_league",
   "version": "1.0.0",
-  "description": "An image cloud backup server",
+  "description": "A mock premier league api",
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
@@ -13,7 +13,12 @@
     "user:seed": "ts-node src/db/seeds/user.seed.ts",
     "test": "nyc --reporter=html --reporter=text mocha -r ts-node/register tests/**/*.spec.ts --exit"
   },
-  "keywords": [],
+  "keywords": [
+    "premier league",
+    "team",
+    "fixture",
+    "league"
+  ],
   "author": "Uthdev",
   "license": "ISC",
   "devDependencies": {

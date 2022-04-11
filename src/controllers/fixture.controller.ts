@@ -9,6 +9,7 @@ import NotFoundException from "../exceptions/NotFoundException";
 import NotAuthorizedException from "../exceptions/NotAuthorizedException";
 import { generateLink } from "../utils/generateUniqueLink";
 import TeamService from "../services/team.service";
+import ResourceAlreadyExistsException from "../exceptions/ResourceAlreadyExistException";
 
 class FixtureController {
 
@@ -17,11 +18,22 @@ class FixtureController {
     const user = request.user;
     try {
       const fixtureRepository = getRepository(FixtureEntity);
+      const fixture = await fixtureRepository.findOne({
+        where: {
+          homeTeam: request.body.homeTeam,
+          awayTeam: request.body.awayTeam,
+          season: request.body.season
+        }
+      });
+      if(fixture)
+        next(new ResourceAlreadyExistsException("Fixture", `${request.body.homeTeam} vs ${request.body.awayTeam}`))
       const { homeTeam, awayTeam } = await TeamService.findTeamsByIds(request.body);
-      const fixture = fixtureRepository.create({ homeTeam, awayTeam, createdBy: user?._id, status: Status.PENDING});
-      const createdFixture = await fixtureRepository.save(fixture)
+
+      const newFixture = fixtureRepository.create({ homeTeam, awayTeam, createdBy: user?._id, status: Status.PENDING});
+      const createdFixture = await fixtureRepository.save(newFixture)
       return response.status(201).json({
         status: 201,
+        message: `Fixture created successfully`,
         data: createdFixture,
       });
     } catch (error) {

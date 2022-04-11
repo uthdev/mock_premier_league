@@ -1,4 +1,4 @@
-import { IsDateString, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
 import { Status } from '../interfaces/fixture.interface';
 
 export class FixtureDto {
@@ -12,6 +12,15 @@ export class FixtureDto {
   @IsString()
   @IsNotEmpty()
   awayTeam: string;
+
+  @IsString()
+  @Matches(
+    /^\d{4}\/\d{4}$/,
+    {
+      message: 'Season must be in format YYYY/YYYY',
+    }
+  )
+  season: string;
 }
 
 

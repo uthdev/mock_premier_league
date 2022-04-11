@@ -12,7 +12,8 @@ class FixtureService {
         $or: [
           {'homeTeam.teamName': new RegExp(searchQuery.toString(), 'i')},
           {'awayTeam.teamName': new RegExp(searchQuery.toString(), 'i')},
-          {status: new RegExp(searchQuery.toString(), 'i')}
+          {status: new RegExp(searchQuery.toString(), 'i')},
+          {season: new RegExp(searchQuery.toString(), 'i')}
         ]
       }
     }

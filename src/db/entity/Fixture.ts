@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, ObjectIdColumn } from "typeorm";
+import { Status } from "../../interfaces/fixture.interface";
 import { TeamEntity } from "./Team";
 
 @Entity('fixtures')
@@ -26,10 +27,13 @@ export class FixtureEntity {
   awayTeamScore: number;
 
   @Column()
+  season: string;
+
+  @Column()
   createdBy: string;
 
   @Column()
-  status: string;
+  status: Status;
 
   @CreateDateColumn()
   createdAt: Date;

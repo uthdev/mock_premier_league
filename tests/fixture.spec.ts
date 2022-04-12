@@ -20,16 +20,18 @@ const nonAdmin = {
 };
 
 const fixture = {
-  homeTeam: '62135ef904600f77ccece89b',
-  awayTeam: '62135ed604600f77ccece89a',
-  matchDate: "2022-02-20T03:08:54.489Z"
+  homeTeam: '625559c9726cdc61a0aae2db',
+  awayTeam: '62555f3c426e2fcf4178dde9',
+  matchDate: "2022-02-20T03:08:00.489Z",
+  season: "2022/2023",
 }
 
 const updateFixture = {
-  homeTeam: '62135ef904600f77ccece89b',
-  awayTeam: '62135ed604600f77ccece89a',
+  homeTeam: '625559c9726cdc61a0aae2db',
+  awayTeam: '62555f3c426e2fcf4178dde9',
   matchDate: "2022-03-20T03:08:54.489Z",
   status: 'completed',
+  season: "2022/2023",
   homeTeamScore: 1,
   awayTeamScore: 2
 }
@@ -55,6 +57,7 @@ describe('Fixtures CONTROLLERS', () => {
         .post('/fixtures')
         .set({ Authorization: `Bearer ${adminToken}` })
         .send(fixture);
+        console.log(res.body)
       expect(res).to.have.status(201);
       expect(res.body).to.have.property('status');
       expect(res.body.status).to.equal(201);
@@ -131,6 +134,7 @@ describe('Fixtures CONTROLLERS', () => {
       const res = await request
         .get('/fixtures?status=completed')
         .set({ Authorization: `Bearer ${adminToken}` });
+        console.log(res.body)
       expect(res).to.have.status(200);
       expect(res.body).to.have.property('status');
       expect(res.body.status).to.equal(200);
@@ -148,6 +152,7 @@ describe('Fixtures CONTROLLERS', () => {
         .post('/fixtures')
         .set({ Authorization: `Bearer ${adminToken}` })
         .send(fixture);
+        console.log(newFixture.body)
       const fixtureId = newFixture.body.data._id;
       const res = await request
         .get(`/fixtures/${fixtureId}`)

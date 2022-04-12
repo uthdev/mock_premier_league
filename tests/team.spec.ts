@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-// import { faker } from '@faker-js/faker'
+import { log } from 'console';
+import { faker } from '@faker-js/faker'
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import app from '../src/index';
@@ -21,7 +22,7 @@ const nonAdmin = {
 };
 
 const team = {
-  teamName: 'Arsenal',
+  teamName: faker.company.companyName(),
 }
 
 const updateTeam = {
@@ -49,6 +50,7 @@ describe('TEAM CONTROLLERS', () => {
         .post('/teams')
         .set({ Authorization: `Bearer ${adminToken}` })
         .send(team);
+        log(res.body)
       expect(res).to.have.status(201);
       expect(res.body).to.have.property('status');
       expect(res.body.status).to.equal(201);
@@ -115,7 +117,10 @@ describe('TEAM CONTROLLERS', () => {
       const newTeam = await request
         .post('/teams')
         .set({ Authorization: `Bearer ${adminToken}` })
-        .send(team);
+        .send({
+          teamName: faker.company.companyName(),
+        });
+        log(newTeam.body);
       const teamId = newTeam.body.data._id;
       const res = await request
         .get(`/teams/${teamId}`)
@@ -150,7 +155,9 @@ describe('TEAM CONTROLLERS', () => {
       const newTeam = await request
         .post('/teams')
         .set({ Authorization: `Bearer ${adminToken}` })
-        .send(team);
+        .send({
+          teamName: faker.company.companyName(),
+        });
       const teamId = newTeam.body.data._id;
       const res = await request
         .patch(`/teams/${teamId}`)
@@ -187,7 +194,9 @@ describe('TEAM CONTROLLERS', () => {
       const newTeam = await request
         .post('/teams')
         .set({ Authorization: `Bearer ${adminToken}` })
-        .send(team);
+        .send({
+          teamName: faker.company.companyName(),
+        });
       const teamId = newTeam.body.data._id;
       const res = await request
         .delete(`/teams/${teamId}`)

@@ -2,7 +2,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import RequestWithUser from "../interfaces/requestWithUser.interface";
-import { getRepository } from "typeorm";
+import { getMongoRepository } from "typeorm";
 import { FixtureEntity } from "../db/entity/Fixture";
 import { Status } from "../interfaces/fixture.interface";
 import NotFoundException from "../exceptions/NotFoundException";
@@ -15,21 +15,20 @@ class FixtureController {
 
   static async addFixture(request: RequestWithUser, response: Response, next: NextFunction) {
 
-    const user = request.user;
+    const {user, body: { season }} = request;
     try {
-      const fixtureRepository = getRepository(FixtureEntity);
-      const fixture = await fixtureRepository.findOne({
+      const fixtureRepository = getMongoRepository(FixtureEntity);
+      const { homeTeam, awayTeam } = await TeamService.findTeamsByIds(request.body);
+      const [fixture] = await fixtureRepository.find({
         where: {
-          homeTeam: request.body.homeTeam,
-          awayTeam: request.body.awayTeam,
-          season: request.body.season
+          homeTeam: homeTeam,
+          awayTeam: awayTeam,
+          season: season
         }
       });
       if(fixture)
-        next(new ResourceAlreadyExistsException("Fixture", `${request.body.homeTeam} vs ${request.body.awayTeam}`))
-      const { homeTeam, awayTeam } = await TeamService.findTeamsByIds(request.body);
-
-      const newFixture = fixtureRepository.create({ homeTeam, awayTeam, createdBy: user?._id, status: Status.PENDING});
+        return next(new ResourceAlreadyExistsException("Fixture", `${fixture.homeTeam.teamName} vs ${fixture.awayTeam.teamName} for season ${season}`))
+      const newFixture = fixtureRepository.create({ homeTeam, awayTeam, createdBy: user?._id, status: Status.PENDING, season });
       const createdFixture = await fixtureRepository.save(newFixture)
       return response.status(201).json({
         status: 201,
@@ -45,7 +44,7 @@ class FixtureController {
   static async getFixture(request: Request, response: Response, next: NextFunction) {
     try {
       const id = request.params.id
-      const fixtureRepository = getRepository(FixtureEntity);
+      const fixtureRepository = getMongoRepository(FixtureEntity);
       const fixture = await fixtureRepository.findOne(id);
       if (fixture) {
         fixture.link = generateLink(fixture._id)
@@ -63,16 +62,13 @@ class FixtureController {
   static async getAllFixtures(request: Request, response: Response, next: NextFunction) {
     try {
       const status = request.query?.status;
-      const fixtureRepository = getRepository(FixtureEntity);
+      const fixtureRepository = getMongoRepository(FixtureEntity);
       if(status) {
         const fixtures = await fixtureRepository.find({ where: { status: status } });
-        if (fixtures.length > 0) {
-          return response.status(200).json({
-            status: 200,
-            data: fixtures
-          })
-        }
-        next(new NotFoundException(`${status} fixtures`, ''))
+        return response.status(200).json({
+          status: 200,
+          data: fixtures
+        })
       } else {
         const fixtures = await fixtureRepository.find();
         return response.status(200).json({
@@ -89,7 +85,7 @@ class FixtureController {
   static async editFixture(request: RequestWithUser, response: Response, next: NextFunction) {
     const fixtureId = request.params.id;
     try {      
-      const fixtureRepository = getRepository(FixtureEntity);
+      const fixtureRepository = getMongoRepository(FixtureEntity);
       const fixture = await fixtureRepository.findOne(fixtureId);
 
       if (fixture) {
@@ -114,7 +110,7 @@ class FixtureController {
   static async deleteFixture(request: Request, response: Response, next: NextFunction) {
     try {
       const id = request.params.id
-      const fixtureRepository = getRepository(FixtureEntity);
+      const fixtureRepository = getMongoRepository(FixtureEntity);
       const fixture = await fixtureRepository.findOne(id);
 
       if (fixture) {
